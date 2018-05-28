@@ -430,20 +430,21 @@
     Dataset parameters
     \vspace{0.25cm}
     
-    \begin{itemize}\setlength{\leftmargin}{0pt}
-    \item
-      document size
-    \item
-      $\thm$~---~number of topics in a document
-    \item
-      $\sgm$~---~number of words in a segment
+    \begin{itemize}\setlength{\itemindent}{-1em} % https://stackoverflow.com/questions/2611276/latex-beamer-way-to-change-the-bullet-indentation
+      \item document size
+      \item $\thm$~---~number of topics in a document
+      \item $\sgm$~---~number of words in a segment
     \end{itemize}
+    
   \column{0.5\textwidth}
-    \includegraphics[scale=0.20]{dataset}
+  
+    \includegraphics[width=0.95\linewidth, height=0.6\textheight]{dataset} % scale=0.20
   \end{columns}
   
+  \medskip
+  
   \begin{block}{}
-    The better the coherence function is, the better it should describe the ability of a topic model to figure out the segmentation structure!
+    The better the coherence is, the better it should describe the ability of a topic model to figure out the segmentation structure!
   \end{block}
 \end{frame}
 
@@ -462,7 +463,7 @@
 
 
 \begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
-  \begin{itemize}\setlength{\leftmargin}{0pt}
+  \begin{itemize}\setlength{\itemindent}{-1em}
   \item Perplexity: intrinsic quality criteria; the lower, the better.
   \item Range of topic models: $\Phi(\alpha) = \alpha \Phi_{bad} + (1 - \alpha) \Phi_{good}$.
   \end{itemize}
@@ -473,28 +474,49 @@
   \end{figure}
   
   \begin{block}{}
-    Segmentation quality estimation may be used as topic models’ quality measure
+    Proposed segmentation quality estimation may be used as topic models’ quality measure
   \end{block}
 \end{frame}
 
 
 \section{Experiments}
 
-\begin{frame}{Illustration of a \textbf{Bad Model} Segmenting Text}
-  \normalsize
-  
-  \begin{itemize}\setlength{\leftmargin}{0pt}
-  \item SQ (S), SQ (H)~---~soft and strict segmentation qualities
-  \item N~---~Newman, M~---~Mimno
-  \item SC~---~SemantiC, TL~---~TopLen, FC~---~FoCon
-  \end{itemize}
-
+\begin{frame}{Illustration of \textbf{a Bad Model} Segmenting Text}
   \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{combine_bad.jpg}
   \end{figure}
+  
+  \vspace{-0.5cm}
+
+  \begin{table}[h]
+    \scriptsize
+    \centering
+    \begin{tabular}{rrrrrrrrr}
+      SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
+      \midrule
+      \rowcolor{my-pink}
+      5.54e3 & 1.10e4 & -4.83 & -3.12 & -12.9 & 0.947 & -37.0e3 & 2.87 & -13.9e4\\
+      \textbf{16.0e3} & \textbf{3.76e4} & \textbf{-3.65} & \textbf{-2.69} & \textbf{-3.70} & 0.700 & \textbf{-8.12e3} & \textbf{3.45} & \textbf{-5.44e4}
+    \end{tabular}
+  \end{table}
+  
+  \begin{itemize}\setlength{\itemindent}{0pt}
+    \small
+    \item SQ (S), SQ (H)~---~Soft and Strict segmentation qualities
+    \item N, M~---~Newman, Mimno
+    \item SC, TL, FC~---~SemantiC, TopLen, FoCon
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Illustration of \textbf{the Good Model} Segmenting Text}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{combine_good.jpg}
+  \end{figure}
     
-  \smallskip
+  \vspace{-0.5cm}
 
   \begin{table}[h]
     \scriptsize
@@ -503,36 +525,17 @@
       SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
       \midrule
       5.54e3 & 1.10e4 & -4.83 & -3.12 & -12.9 & 0.947 & -37.0e3 & 2.87 & -13.9e4\\
-    \end{tabular}
-  \end{table}
-\end{frame}
-
-
-\begin{frame}{Illustration of the \textbf{Good Model} Segmenting Text}
-  \normalsize
-  
-  \begin{itemize}\setlength{\leftmargin}{0pt}
-  \item SQ (S), SQ (H)~---~soft and strict segmentation qualities
-  \item N~---~Newman, M~---~Mimno
-  \item SC~---~SemantiC, TL~---~TopLen, FC~---~FoCon
-  \end{itemize}
-
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{combine_good.jpg}
-  \end{figure}
-    
-  \smallskip
-
-  \begin{table}[h]
-    \scriptsize
-    \centering
-    \begin{tabular}{rrrrrrrrr}
-      SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
-      \midrule
+      \rowcolor{my-pink}
       \textbf{16.0e3} & \textbf{3.76e4} & \textbf{-3.65} & \textbf{-2.69} & \textbf{-3.70} & 0.700 & \textbf{-8.12e3} & \textbf{3.45} & \textbf{-5.44e4}
     \end{tabular}
   \end{table}
+  
+  \begin{itemize}\setlength{\itemindent}{0pt}
+    \small
+    \item SQ (S), SQ (H)~---~Soft and Strict segmentation qualities
+    \item N, M~---~Newman, Mimno
+    \item SC, TL, FC~---~SemantiC, TopLen, FoCon
+  \end{itemize}
 \end{frame}
 
 
