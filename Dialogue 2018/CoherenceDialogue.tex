@@ -1,0 +1,622 @@
+\documentclass[russian]{beamer}
+\usepackage{mystyleslides}
+\usepackage{cohmystyle}
+\usepackage{changepage}
+
+% https://tex.stackexchange.com/questions/1656/footnote-counter-would-like-to-restart-from-1-each-page
+% https://stackoverflow.com/questions/3701605/how-to-restart-footnote-numbering-every-page
+
+% \usepackage[perpage]{footmisc}
+
+% \usepackage{perpage}
+% \MakePerPage{footnote}
+
+%% \usepackage{eulervm}
+%% \usepackage{fourier}
+
+\graphicspath{ {images/} }
+
+\usetheme{Warsaw} % Warsaw Copenhagen Madrid CambridgeUs Darmstadt Frankfurt Singapore
+\setbeamertemplate{headline}{}
+
+\definecolor{beamer@blendedblue}{RGB}{0, 65, 106}
+%% 0, 65, 106 *
+%% 0, 51, 102
+%% 8, 69, 126
+%% 0, 49, 83
+
+%% 17, 96, 98
+%% 1, 58, 51
+
+\definecolor{my-red}{RGB}{176, 0, 0}
+\definecolor{my-blue}{RGB}{0, 0, 153}
+\definecolor{my-teal}{RGB}{0, 153, 153}
+\definecolor{my-green}{RGB}{0, 153, 0}
+\definecolor{my-violet}{RGB}{75, 0, 130}
+\definecolor{my-pink}{RGB}{253, 123, 124}
+%{90, 45, 102} % violet
+%{145, 30, 66} % light cherry
+%{146, 43, 62} % cherry
+
+%\usecolortheme{default}
+%\usecolortheme{sidebartab}
+%\usefonttheme{default}
+
+% Inserting frame numbers in footline
+% http://tex.stackexchange.com/questions/191198/customization-of-the-copenhagen-theme
+\makeatletter
+  \iffalse
+  \pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+    color(0pt)=(myblue2);
+    color(\paperwidth)=(white)}
+  \fi
+
+  \defbeamertemplate*{footline}{mysplit theme}
+  {%
+    \leavevmode%
+    \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle\hfill
+      \insertframenumber\ / \inserttotalframenumber\hspace*{0.5em}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+  }
+\makeatother
+
+
+% https://tex.stackexchange.com/questions/170222/change-the-numbering-in-beamers-table-of-content
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+  {\ifnum\beamer@tempcount>0}
+  {\ifnum\beamer@tempcount>-1}
+  {}
+  {}
+\beamer@tocsectionnumber=-1
+\makeatother
+
+
+%\setbeamertemplate{footline}[frame number] % page numbering outside Navigation Bar
+\setbeamertemplate{navigation symbols}{} % switch off navigation bar
+%\setbeamertemplate{caption}[numbered]
+
+\setbeamertemplate{itemize item}[ball] % Загадка, но без этого у itemize не будет кружочков % itemize items
+\setbeamertemplate{itemize subitem}[triangle]
+\newcommand{\labelitemi}{\usebeamertemplate{itemize item}{}} % Загадка, но без этого у itemize не будет кружочков
+\newcommand{\labelitemii}{\usebeamertemplate{itemize subitem}{}} % https://tex.stackexchange.com/questions/12735/can-one-replace-bullet-points-with-graphics
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\title[Intra-Text Coherence]
+{
+  Intra-Text Coherence as a Measure of Topic Models’ Interpretability
+}
+\subtitle{}
+
+\author[Vasiliy Alekseev]{
+  Vasiliy Alekseev, %\inst{1}
+  Victor Bulatov,
+  Konstantin Vorontsov
+}
+
+\institute[]
+{
+  \footnotesize
+  % MIPT
+  % \includegraphics[height=1.2cm]{mipt_logo_eng}
+}
+
+\date[Dialogue 2018]
+{
+  \footnotesize
+  {
+    24rd International Conference on Computational Linguistics and Intellectual Technologies\\ \bigskip 1 June 2018
+  }
+}
+
+\titlegraphic{
+  % \includegraphics[height=1.2cm]{mipt_logo_eng}
+  \includegraphics[height=0.65cm]{dialogue_logo}
+  ~
+  \includegraphics[height=1.6cm, trim=0 1.74cm 0 -1.74cm]{mipt_logo_eng}
+  % https://tex.stackexchange.com/questions/107340/how-to-shift-graphics-adjust-placement-of-figure-with-includegraphics
+}
+
+
+\iffalse
+% https://tex.stackexchange.com/questions/74023/two-logos-in-opposite-side-on-beamer
+\logo{%
+  \makebox[0.95\paperwidth]{%
+    \includegraphics[width=1cm,keepaspectratio]{dialogue_logo}%
+    \hfill%
+    \includegraphics[width=1cm,keepaspectratio]{mipt_logo_eng}%
+  }%
+}
+\fi
+
+
+\begin{document}
+  % \maketitle
+  % \thispagestyle{empty}
+  % \newpage
+
+  % \pagenumbering{arabic}
+		
+  % \tableofcontents
+  % \newpage
+
+  % \addcontentsline{toc}{section}{Пролог}
+  % \include{prologue}
+  
+\frame{\titlepage}
+
+
+\begin{frame}{Topic, Its Interpretability \& Coherence}
+  \emph{Topic} is a set of words that often occur together in text.
+  
+  \medskip
+  
+  \emph{Interpretability} of the topic means whether the topic is understandable for a person or not.
+  
+  \vspace{0.25cm}
+  
+  \begin{exampleblock}{Well Interpreted Topic}
+    % океан, станция, хари, фиолетовый, симметриада, космос
+    ocean, station, hari, violet, symmetriada , space
+  \end{exampleblock}
+  
+  \begin{alertblock}{Badly Interpreted Topic}
+    % экспресс, эпиграф, туманный, результат, образ, право
+    express, epigraph, foggy, result, image, right
+  \end{alertblock}
+  
+  \vspace{0.25cm}
+  
+  \emph{Coherence} is an automated procedure estimating the interpretability.
+\end{frame}
+
+
+%\section{Цель исследования}
+\begin{frame}{Purpose of the Study}
+  \begin{block}{Problem}
+    Existing methods of calculating topic's coherence are based on the analysis of its most frequent words' co-occurrences.
+    However, the proportion of text covered by these top-words is not controlled in any way.
+  \end{block}
+  \begin{block}{Solution}
+    Evaluate coherence as an average thematic proximity of words closely located in text.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Contents}
+  \tableofcontents
+\end{frame}
+
+
+\section{Prologue}
+
+
+\subsection{Topic Modeling}
+
+
+\begin{frame}{Сonventional Signs}
+  \begin{itemize}
+    %\setbeamertemplate{itemize items}[triangle]
+    %\setlength\itemsep{1em}
+    \item $W$~---~dictionary, $D$~---~documents, $T$~---~topics
+    \item $n_{dw}$~---~number of occurrences of word $w$ in the document $d$
+    \item $\nu_{wd}$~---~frequency of word's $w$ occurrences in document $d$
+    \item $\phi_{wt} \equiv p(w \mid t)$~---~probability that word $w$ refers to topic $t$ %тема как условное распределение на множестве терминов\sp
+    \item $\theta_{td} \equiv p(t \mid d)$~---~probability that topic $t$ refers to document $d$
+    \item $\bds w \equiv p(t \mid w)$~---~corresponding to word $w$ vector
+    \item Matrices $\Phi \equiv (\phi_{wt})_{W \times T}$, $\Theta \equiv (\theta_{td})_{T \times D}$
+    \item "Bag of words" hypothesis: it doesn't matter how words are ordered in documents
+    \item Hypothesis of conditional independence: $p(w \mid d, t) \equiv p(w \mid t)$
+  \end{itemize}
+  
+  \emph{Topic model} through topics describes occurrences of words in documents
+  \[
+     p(w \mid d) = \sum\limits_{T} p(w \mid t) p(t \mid d)
+  \]
+\end{frame}
+
+
+\begin{frame}{Topic Modeling}
+  Matrix decomposition problem
+  $(\nu_{wd})_{W \times D} = \Phi\, \Theta$
+  
+  \medskip
+  
+  ARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}: Regularized log likelihood $p(T, D, W)$ maximization
+  \[
+    \sum_{d \in D}\sum_{w \in W_d}n_{dw} \ln{\sum_{t \in T} \phi_{wt} \theta_{td}} + R(\Phi, \Theta) \to \max\limits_{\Phi, \Theta}
+  \]
+  
+  \medskip
+  
+  Proper regularizer $R(\Phi, \Theta)$ may help with
+  \begin{itemize}
+  \item smoothing a background topic, spreading its probability among general vocabulary words
+  \item sparsing a topic, thickening its probability in a small number of subject area words
+  \item decorrelation of topics
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Original Dataset}
+
+
+\begin{frame}{Original Dataset}
+
+  {\small
+    Approximately 2000 \emph{monotopic} articles from PostNauka\footnote[frame]{https://postnauka.ru} on 19 topics.
+  }
+  
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{topwords.jpg}
+    \caption*{Three top-words of each of 19 topics}
+  \end{figure}
+\end{frame}
+
+\section{Top-Tokens Based Coherences}
+
+
+\subsection{Newman, Mimno}
+
+\begin{frame}{
+  Newman, % ${}^{\mbox{\scriptsize 3}}$
+  Mimno % ${}^{\mbox{\scriptsize 4}}$
+}
+  \begin{block}{}
+  \begin{itemize}
+    \setlength\itemsep{0.5cm}
+    \item
+      $
+      \Newman\footnote[frame]{Newman et al. Automatic Evaluation of Topic Coherence, 2010}\Bigm|_{t}\, = \dfrac{1}{\binom{k}{2}} \sum\limits_{i=1}^{\textcolor{my-col1}{\bds k}-1}\sum\limits_{j=i+1}^{\textcolor{my-col1}{\bds k}} \ln \dfrac{p(w_i, w_j)}{p(w_i) p(w_j)}
+      $
+    \item
+      $
+      \Mimno\footnote[frame]{Mimno et al. Optimizing Semantic Coherence in Topic Models, 2011}\hphantom{n\,}\Bigm|_{t}\, = \dfrac{1}{\binom{k}{2}} \sum\limits_{i=1}^{\textcolor{my-col1}{\bds k}-1}\sum\limits_{j=i+1}^{\textcolor{my-col1}{\bds k}} \ln \dfrac{D(w_i, w_j) + 1}{D(w_i)}
+      $
+  \end{itemize}
+  \end{block}
+  
+  \begin{itemize}
+  \item $\textcolor{my-col1}{\bds k}$~---~number of top-words of topic $t$ used to evaluate coherence
+  \item $p(w_i),\, p(w_i, w_j)$~---~probability to find word $w_i$ and two words $w_i, w_j$ in a context window of given size
+  \item $D(w_i),\, D(w_i, w_j)$~---~number of documents containing word $w_i$ and two words $w_i, w_j$ in a context window of given size
+  \end{itemize}
+\end{frame}
+
+
+\subsection{Drawbacks of Top-Tokens Based Approach}
+
+\begin{frame}{Drawbacks of Top-Tokens Based Approach}
+  Top token-based coherences may ignore more than 98\% of words of the documents' collection.
+  
+  \bigskip
+  
+  \begin{table}[h]
+    \centering
+    \captionsetup{justification=centering}
+    
+    \begin{tabular}{lcc}
+      {} & PostNauka, \% & Wikipedia, \%\\
+      \midrule
+      Minimum & 0.016 & 0.0065\\
+      Median & 0.048 & 0.029\\
+      Mean & 0.062 & 0.036\\
+      Maximum & 0.28 & 0.11\\
+      \midrule
+      Total & \textbf{1.2} & \textbf{1.7}
+    \end{tabular}
+    
+    \caption*{The proportion of corpus contributing to the co-occurrence counts of top 10 most frequent words for each topic}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{Drawbacks of Top-Tokens Based Approach}
+  A single top token "частиц" out of the first 10 ones is seen.\\
+  The wide range of less strong topical words is ignored by the top-tokens based coherences.
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{topwords-insufficient.jpg}
+  \end{figure}
+\end{frame}
+
+
+\section{Intra-Text Coherences}
+
+\begin{frame}{SemantiC (L2, Cos)}
+  \begin{block}{Meaning}
+    Semantic proximity of closely located words in text
+  \end{block}
+    
+  \begin{block}{Formula}
+    $
+    \SemantiC \Bigm|_{t} = -\biggl\langle\bigl[\rho(w_i, w_j) < \window\bigr] \dist{\bigl(\bsym{w_i}, \bsym{w_j}\bigr)}\biggr\rangle
+    $\sp
+    $\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \ \Big|\ {-}\cos(\bsym{w_i}, \bsym{w_j})$\sp
+    %$(d, w_i, w_j) : d \in D,\ w_i, w_j \in W_d,\ \alert{w_i, w_j} \in W_t$
+  \end{block}
+  
+  \vspace{0.20cm}
+  $t = \mbox{"Чёрные дыры"},\ \window = 3$
+  \jp
+  $\underbrace{\mbox{Группе}}_{w_1}\ \mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}\ \mbox{обнаружить}\ \mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}$\\
+  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}}_{}\ \mbox{близком}\ \mbox{расстоянии}.$
+\end{frame}
+
+
+\begin{frame}{SemantiC (Var)}
+  \begin{block}{Meaning}
+    Semantic proximity of closely located words in text
+  \end{block}
+    
+  \begin{block}{Formula}
+    $
+    \SemantiC \Bigm|_{t} = -\Var\Bigl(\bsym{w}_i(t), \bsym{w}_{i+1}(t), \ldots, \bsym{w}_{i+\window}(t)\Bigr)
+    $\sp
+    %$\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \mid -\cos(\bsym{w_i}, \bsym{w_j})$\sp
+    %$(d, w_i, w_j) : d \in D,\ w_i, w_j \in W_d,\ \alert{w_i, w_j} \in W_t$
+  \end{block}
+  
+  \vphantom{$\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \mid {-\cos}(\bsym{w_i}, \bsym{w_j})$\sp}
+  
+  \vspace{0.20cm}
+  $t = \mbox{"Чёрные дыры"},\ \window = 3$
+  \jp
+  $\underbrace{\mbox{Группе}}_{w_1}\ \mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}\ \mbox{обнаружить}\ \mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}$\\
+  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}}_{}\ \mbox{близком}\ \mbox{расстоянии}.$
+\end{frame}
+
+
+\begin{frame}{TopLen}
+  \begin{block}{Meaning}
+    Average length of the topic in text
+  \end{block}
+  
+  \begin{block}{Formula}
+    \begin{flalign*}
+      &\TopLen \Bigm|_{t} = \biggl\langle \max\Bigl\{n : \threshold + \sum\limits_{j=i}^{i+n} \Bigl(
+          \bsym{w_j}[t] - \underset{\substack{1 \leq \tau \leq |T|\\\tau \not= t}}{\max}\, \bsym{w_j}[\tau]
+        \Bigr) \geq 0\Bigr\} \biggr\rangle&
+    \end{flalign*}
+  \end{block}
+  
+  \vspace{0.75cm}
+  $t = \mbox{"Чёрные дыры"},\ \threshold \sim 0$~---~threshold
+  \jp
+  $\underbrace{\mbox{Группе}}_{w_1}\ \underbrace{\mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}}_{l_1=2}\ \mbox{обнаружить}\ \underbrace{\mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}}_{l_2=2}$\\
+  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}\ \mbox{близком}}_{l_3=4}\ \mbox{расстоянии}.$
+\end{frame}
+
+
+\begin{frame}{FoCon}
+  \begin{block}{Meaning}
+    Estimation of how much throughout the text differ adjacent words
+  \end{block}
+  
+  \begin{block}{Formula}
+    \begin{flalign*}
+      &\FoCon = -\sum\limits_{d \in D}\sum\limits_{\substack{w, u \in W_d\\\rho(w, u)=1}}
+      \bigl|\bsym{w}[t] - \bsym{u}[t]\bigr| + \bigl|\bsym{w}[\tau] - \bsym{u}[\tau]\bigr|&
+    \end{flalign*}
+  \end{block}
+  
+  $t, \tau$~---~maximal components of vectors $\bds w$ and $\bds u$ respectively
+\end{frame}
+
+
+\section{Automatic Coherences' Quality Estimation}
+
+
+\subsection{Semisynthetic Dataset}
+
+\begin{frame}{Semisynthetic Dataset}
+  \begin{columns}
+  \column{0.5\textwidth}
+    Dataset parameters
+    \vspace{0.25cm}
+    
+    \begin{itemize}\setlength{\leftmargin}{0pt}
+    \item
+      document size
+    \item
+      $\thm$~---~number of topics in a document
+    \item
+      $\sgm$~---~number of words in a segment
+    \end{itemize}
+  \column{0.5\textwidth}
+    \includegraphics[scale=0.20]{dataset}
+  \end{columns}
+  
+  \begin{block}{}
+    The better the coherence function is, the better it should describe the ability of a topic model to figure out the segmentation structure!
+  \end{block}
+\end{frame}
+
+
+\subsection{Segmentation Quality}
+
+\begin{frame}{Segmentation Quality}
+  \begin{block}{Soft}
+    Sum among topics of sums $p(t \mid d, w)$ for each topic $t$ over pairs $(d, w), d \hm\in d, w \hm\in W_d$
+  \end{block}
+  
+  \begin{block}{Strict}
+    Number of coincidences of the topic $\argmax_\tau p(\tau \mid d, w)$ predicted by the model for the word $w$ in the document with the actual topic $t$ of the segment
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
+  \begin{itemize}\setlength{\leftmargin}{0pt}
+  \item Perplexity: intrinsic quality criteria; the lower, the better.
+  \item Range of topic models: $\Phi(\alpha) = \alpha \Phi_{bad} + (1 - \alpha) \Phi_{good}$.
+  \end{itemize}
+  
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{segm_quality-iteration200}
+  \end{figure}
+  
+  \begin{block}{}
+    Segmentation quality estimation may be used as topic models’ quality measure
+  \end{block}
+\end{frame}
+
+
+\section{Experiments}
+
+\begin{frame}{Illustration of a \textbf{Bad Model} Segmenting Text}
+  \normalsize
+  
+  \begin{itemize}\setlength{\leftmargin}{0pt}
+  \item SQ (S), SQ (H)~---~soft and strict segmentation qualities
+  \item N~---~Newman, M~---~Mimno
+  \item SC~---~SemantiC, TL~---~TopLen, FC~---~FoCon
+  \end{itemize}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{combine_bad.jpg}
+  \end{figure}
+    
+  \smallskip
+
+  \begin{table}[h]
+    \scriptsize
+    \centering
+    \begin{tabular}{rrrrrrrrr}
+      SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
+      \midrule
+      5.54e3 & 1.10e4 & -4.83 & -3.12 & -12.9 & 0.947 & -37.0e3 & 2.87 & -13.9e4\\
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{Illustration of the \textbf{Good Model} Segmenting Text}
+  \normalsize
+  
+  \begin{itemize}\setlength{\leftmargin}{0pt}
+  \item SQ (S), SQ (H)~---~soft and strict segmentation qualities
+  \item N~---~Newman, M~---~Mimno
+  \item SC~---~SemantiC, TL~---~TopLen, FC~---~FoCon
+  \end{itemize}
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{combine_good.jpg}
+  \end{figure}
+    
+  \smallskip
+
+  \begin{table}[h]
+    \scriptsize
+    \centering
+    \begin{tabular}{rrrrrrrrr}
+      SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
+      \midrule
+      \textbf{16.0e3} & \textbf{3.76e4} & \textbf{-3.65} & \textbf{-2.69} & \textbf{-3.70} & 0.700 & \textbf{-8.12e3} & \textbf{3.45} & \textbf{-5.44e4}
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{Spearman Correlations Between Coherences \& Segmentation Quality}
+  \begin{table}[t]
+    \begin{tabular}{lr}
+      Coh & Corr\\
+      \toprule
+      Newman & $0.75$\\
+      Mimno & $0.96$\\
+      \midrule
+      SC L2 & $0.92$\\
+      SC Cos & $-0.97$\\
+      SC Var & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
+      \bottomrule
+    \end{tabular}
+    ~
+    \begin{tabular}{lr}
+      Coh & Corr\\
+      \toprule
+      Newman & $0.80$\\
+      Mimno & $0.94$\\
+      \midrule
+      SC L2 & $0.70$\\
+      SC Cos & $-0.97$\\
+      SC Var & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
+      \bottomrule
+    \end{tabular}
+    ~
+    \begin{tabular}{lr}
+      Coh & Corr\\
+      \toprule
+      Newman & $0.85$\\
+      Mimno & $0.97$\\
+      \midrule
+      SC L2 & $0.59$\\
+      SC Cos & $-0.96$\\
+      SC Var & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
+      \bottomrule
+    \end{tabular}
+    \centering
+    \captionsetup{justification=centering}
+    \caption*{
+      Results for datasets with sizes of segments: 50, 200 and 400 words~---~and with $5$ topics in each document}
+  \end{table}
+\end{frame}
+
+
+\begin{frame}{Coherence Measures \& Segmentation Quality as a Function of $\alpha$ (dataset $\sgm=200,\ \thm=5$)}
+  \begin{figure}[h]
+    \begin{subfigure}[t]{0.48\textwidth}
+      \includegraphics[width=\linewidth]{newman-iteration.jpg}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.48\textwidth}
+      \includegraphics[width=\linewidth]{mimno-iteration.jpg}
+    \end{subfigure}
+    %%
+    \begin{subfigure}[t]{0.48\textwidth}
+      \includegraphics[width=\linewidth]{toplen-iteration.jpg}
+    \end{subfigure}
+    ~
+    \begin{subfigure}[t]{0.48\textwidth}
+      \includegraphics[width=\linewidth]{semantic_var-iteration.jpg}
+    \end{subfigure}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Results}
+  \begin{itemize}
+  \setlength\itemsep{0.5cm}
+  \item
+    % Предложены новые способы подсчёта когерентности.
+    % При некоторых характеристиках обрабатываемого текста новые методы превосходят по качеству уже существующие.
+    New methods of calculating coherence which take into account the whole text.\\
+    In the problem under consideration, the proposed coherences outperform top-tokens based ones.
+  \item
+    % Разработан полуавтоматический способ сравнения когерентностей.
+    An automatic method for evaluating coherences functions based on their comparison with text segmentation quality.
+  \end{itemize}
+\end{frame}
+\end{document}
