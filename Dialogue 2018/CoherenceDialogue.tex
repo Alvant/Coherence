@@ -163,23 +163,24 @@
   
   \medskip
   
-  \emph{Interpretability} of the topic means whether the topic is understandable for a person or not.
+  \emph{Interpretability} of the topic means that a human is able to explain the meaning behind its set of words.
+  However, such human assessment is expensive.
   
   \vspace{0.25cm}
   
-  \begin{exampleblock}{Well Interpreted Topic}
+  \begin{exampleblock}{Well Interpreted Topic (Most Frequent Terms)}
     % океан, станция, хари, фиолетовый, симметриада, космос
     ocean, station, hari, violet, symmetriada , space
   \end{exampleblock}
   
-  \begin{alertblock}{Badly Interpreted Topic}
+  \begin{alertblock}{Badly Interpreted Topic (Most Frequent Terms)}
     % экспресс, эпиграф, туманный, результат, образ, право
     express, epigraph, foggy, result, image, right
   \end{alertblock}
   
   \vspace{0.25cm}
   
-  \emph{Coherence} is an automated procedure estimating the interpretability.
+  \emph{Coherence} is a commonly used method for estimating the interpretability, which measures how often 10 most probable terms of the topic occur in close proximity within text.
 \end{frame}
 
 
@@ -404,7 +405,7 @@
 
 \begin{frame}{FoCon}
   \begin{block}{Meaning}
-    Estimation of how much throughout the text differ adjacent words
+    Estimation of how much the focus of a conversation drifts
   \end{block}
   
   \begin{block}{Formula}
