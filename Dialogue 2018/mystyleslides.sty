@@ -2,6 +2,9 @@
 
 \usepackage{amsmath,amssymb,amsfonts,amsbsy,amstext,amscd,amsxtra}
 
+\usepackage{tabularx,booktabs}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
 \usepackage{ifxetex}
 
 \ifxetex % xelatex
@@ -571,3 +574,19 @@
   }{O}{c}{F}{T}{S}%
 }}
 \fi
+
+
+
+\newenvironment{psmallmatrix}
+  {\left(\begin{smallmatrix}}
+  {\end{smallmatrix}\right)}
+
+  
+\newcommand{\topicvector}[3]{
+    \begin{pmatrix}\\ \fcolorbox{black}{#1}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#2}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#3}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \end{pmatrix}
+}
+
+\newcommand{\smalltopicvector}[3]{
+    \begin{psmallmatrix}\\ \fcolorbox{black}{#1}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#2}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#3}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \end{psmallmatrix}
+}
+ 

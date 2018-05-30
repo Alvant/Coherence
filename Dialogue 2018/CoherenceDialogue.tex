@@ -169,13 +169,13 @@
   \vspace{0.25cm}
   
   \begin{exampleblock}{Well Interpreted Topic (Most Frequent Terms)}
-    % океан, станция, хари, фиолетовый, симметриада, космос
-    ocean, station, hari, violet, symmetriada , space
+    actor, play, musical, premiere, parterre, spectator, producer, audience, backstage, orchestra
   \end{exampleblock}
   
   \begin{alertblock}{Badly Interpreted Topic (Most Frequent Terms)}
     % экспресс, эпиграф, туманный, результат, образ, право
-    express, epigraph, foggy, result, image, right
+    express, epigraph, foggy, result, image, right, 
+    loan, debt, bankrupt, interest
   \end{alertblock}
   
   \vspace{0.25cm}
@@ -186,10 +186,18 @@
 
 %\section{Цель исследования}
 \begin{frame}{Purpose of the Study}
+  \begin{minipage}{0.4\textwidth}
   \begin{block}{Problem}
     Existing methods of calculating topic's coherence are based on the analysis of its most frequent words' co-occurrences.
     However, the proportion of text covered by these top-words is not controlled in any way.
   \end{block}
+  \end{minipage}
+  \begin{minipage}{0.1\textwidth}
+  \phantom{W}
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+      \includegraphics[width=\textwidth]{doc10399_topic_0.png}
+  \end{minipage}
   \begin{block}{Solution}
     Evaluate coherence as an average thematic proximity of words closely located in text.
   \end{block}
@@ -338,48 +346,83 @@
 
 \section{Intra-Text Coherences}
 
+
+
+
+
+
 \begin{frame}{SemantiC (L2, Cos)}
+
   \begin{block}{Meaning}
     Semantic proximity of closely located words in text
   \end{block}
-    
-  \begin{block}{Formula}
-    $
-    \SemantiC \Bigm|_{t} = -\biggl\langle\bigl[\rho(w_i, w_j) < \window\bigr] \dist{\bigl(\bsym{w_i}, \bsym{w_j}\bigr)}\biggr\rangle
-    $\sp
-    $\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \ \Big|\ {-}\cos(\bsym{w_i}, \bsym{w_j})$\sp
-    %$(d, w_i, w_j) : d \in D,\ w_i, w_j \in W_d,\ \alert{w_i, w_j} \in W_t$
-  \end{block}
-  
-  \vspace{0.20cm}
-  $t = \mbox{"Чёрные дыры"},\ \window = 3$
-  \jp
-  $\underbrace{\mbox{Группе}}_{w_1}\ \mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}\ \mbox{обнаружить}\ \mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}$\\
-  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}}_{}\ \mbox{близком}\ \mbox{расстоянии}.$
+\begin{table}[]
+%\begin{tabular}{lllll}
+\begin{tabularx}{320pt}{l| *{4}{Y}|}
+%& Group of & astronomers & discovered & a star \\
+& Группа & астрономов & обнаружила & звезду \\
+\begin{tabular}[c]{@{}l@{}}\begin{matrix}\\ \textcolor{my-red}{Astronomy} \\\\
+\textcolor{green}{Biology} \\\\
+\textcolor{blue}{Music} \\\\
+\end{matrix}\end{tabular} & 
+\begin{tabular}[c]{@{}l@{}} 
+    \topicvector{my-red!10}{green!33}{blue!66}
+\end{tabular} & 
+\begin{tabular}[c]{@{}l@{}}
+    \topicvector{my-red!90}{green!10}{blue!10}
+\end{tabular} &  
+\begin{tabular}[c]{@{}l@{}}
+    \topicvector{my-red!45}{green!45}{blue!10}
+\end{tabular} & 
+\begin{tabular}[c]{@{}l@{}}
+    \topicvector{my-red!75}{green!10}{blue!55}
+\end{tabular}
+\end{tabularx}
+\end{table}
+We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{green!10}{blue!55}$, etc.
 \end{frame}
-
 
 \begin{frame}{SemantiC (Var)}
+
   \begin{block}{Meaning}
-    Semantic proximity of closely located words in text
+    How much the meanings of adjacent words differ, according to the topic model
   \end{block}
-    
-  \begin{block}{Formula}
-    $
-    \SemantiC \Bigm|_{t} = -\Var\Bigl(\bsym{w}_i(t), \bsym{w}_{i+1}(t), \ldots, \bsym{w}_{i+\window}(t)\Bigr)
-    $\sp
-    %$\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \mid -\cos(\bsym{w_i}, \bsym{w_j})$\sp
-    %$(d, w_i, w_j) : d \in D,\ w_i, w_j \in W_d,\ \alert{w_i, w_j} \in W_t$
-  \end{block}
-  
-  \vphantom{$\rho(w_i, w_j) \hm= j \hm- i,\ \dist(\bsym{w_i}, \bsym{w_j}) = \|\bsym{w_i} - \bsym{w_j}\|_2 \mid {-\cos}(\bsym{w_i}, \bsym{w_j})$\sp}
-  
-  \vspace{0.20cm}
-  $t = \mbox{"Чёрные дыры"},\ \window = 3$
-  \jp
-  $\underbrace{\mbox{Группе}}_{w_1}\ \mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}\ \mbox{обнаружить}\ \mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}$\\
-  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}}_{}\ \mbox{близком}\ \mbox{расстоянии}.$
+\begin{table}[]
+\begin{tabularx}{1.1\textwidth}{l| *{3}{Y}|*{3}{Y}|}
+& \multicolumn{3}{c|}{Low variance} 
+& \multicolumn{3}{c|}{High variance}\\
+\cline{2-7}
+& русский & поэт & Пушкин & Толстой & Рассел & Эйлер \\
+\begin{tabular}[c]{@{}l@{}}\begin{smallmatrix}\\ \textcolor{my-red}{Literature} \\\\
+\textcolor{green}{Philosophy} \\\\
+\textcolor{blue}{Mathematics} \\\\
+\end{smallmatrix}\end{tabular}  &
+\begin{tabular}[c]{@{}l@{}} 
+    \smalltopicvector{my-red!50}{green!25}{blue!25}
+\end{tabular} & 
+\begin{tabular}[c]{@{}l@{}}
+    \smalltopicvector{my-red!90}{green!10}{blue!10}
+\end{tabular} &  
+\begin{tabular}[c]{@{}l@{}}
+    \smalltopicvector{my-red!90}{green!10}{blue!10}
+\end{tabular} &  
+\begin{tabular}[c]{@{}l@{}}
+    \smalltopicvector{my-red!90}{green!30}{blue!10}
+\end{tabular} &  
+\begin{tabular}[c]{@{}l@{}}
+    \smalltopicvector{my-red!10}{green!50}{blue!50}
+\end{tabular} &  
+\begin{tabular}[c]{@{}l@{}}
+    \smalltopicvector{my-red!10}{green!10}{blue!90}
+\end{tabular}  
+\end{tabularx}
+\end{table}
+
+
 \end{frame}
+
+
+
 
 
 \begin{frame}{TopLen}
@@ -448,6 +491,13 @@
   \end{block}
 \end{frame}
 
+	\begin{frame}
+		\frametitle{Example}
+		\centering
+        \includegraphics[width=.85\textwidth]{pn_gen_diagram.png}\\
+
+       Semi-synthetic document produced by combining a sociology segment and an medicine segment.
+	\end{frame}
 
 \subsection{Segmentation Quality}
 
