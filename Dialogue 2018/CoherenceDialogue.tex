@@ -361,21 +361,21 @@
 \begin{tabularx}{320pt}{l| *{4}{Y}|}
 %& Group of & astronomers & discovered & a star \\
 & Группа & астрономов & обнаружила & звезду \\
-\begin{tabular}[c]{@{}l@{}}\begin{matrix}\\ \textcolor{my-red}{Astronomy} \\\\
+\begin{tabular}[c]{@{}l@{}}$\begin{matrix}\\ \textcolor{my-red}{Astronomy} \\\\
 \textcolor{green}{Biology} \\\\
 \textcolor{blue}{Music} \\\\
-\end{matrix}\end{tabular} & 
+\end{matrix}$\end{tabular} & 
 \begin{tabular}[c]{@{}l@{}} 
-    \topicvector{my-red!10}{green!33}{blue!66}
+    $\topicvector{my-red!10}{green!33}{blue!66}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    \topicvector{my-red!90}{green!10}{blue!10}
+    $\topicvector{my-red!90}{green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    \topicvector{my-red!45}{green!45}{blue!10}
+    $\topicvector{my-red!45}{green!45}{blue!10}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    \topicvector{my-red!75}{green!10}{blue!55}
+    $\topicvector{my-red!75}{green!10}{blue!55}$
 \end{tabular}
 \end{tabularx}
 \end{table}
@@ -393,27 +393,27 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
 & \multicolumn{3}{c|}{High variance}\\
 \cline{2-7}
 & русский & поэт & Пушкин & Толстой & Рассел & Эйлер \\
-\begin{tabular}[c]{@{}l@{}}\begin{smallmatrix}\\ \textcolor{my-red}{Literature} \\\\
+\begin{tabular}[c]{@{}l@{}}$\begin{smallmatrix}\\ \textcolor{my-red}{Literature} \\\\
 \textcolor{green}{Philosophy} \\\\
 \textcolor{blue}{Mathematics} \\\\
-\end{smallmatrix}\end{tabular}  &
+\end{smallmatrix}$\end{tabular}  &
 \begin{tabular}[c]{@{}l@{}} 
-    \smalltopicvector{my-red!50}{green!25}{blue!25}
+    $\smalltopicvector{my-red!50}{green!25}{blue!25}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    \smalltopicvector{my-red!90}{green!10}{blue!10}
+    $\smalltopicvector{my-red!90}{green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    \smalltopicvector{my-red!90}{green!10}{blue!10}
+    $\smalltopicvector{my-red!90}{green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    \smalltopicvector{my-red!90}{green!30}{blue!10}
+    $\smalltopicvector{my-red!90}{green!30}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    \smalltopicvector{my-red!10}{green!50}{blue!50}
+    $\smalltopicvector{my-red!10}{green!50}{blue!50}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    \smalltopicvector{my-red!10}{green!10}{blue!90}
+    $\smalltopicvector{my-red!10}{green!10}{blue!90}$
 \end{tabular}  
 \end{tabularx}
 \end{table}
@@ -545,7 +545,7 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
     \begin{tabular}{rrrrrrrrr}
       SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
       \midrule
-      \rowcolor{my-pink}
+      \rowcolor{my-blue-light}
       5.54e3 & 1.10e4 & -4.83 & -3.12 & -12.9 & 0.947 & -37.0e3 & 2.87 & -13.9e4\\
       \textbf{16.0e3} & \textbf{3.76e4} & \textbf{-3.65} & \textbf{-2.69} & \textbf{-3.70} & 0.700 & \textbf{-8.12e3} & \textbf{3.45} & \textbf{-5.44e4}
     \end{tabular}
@@ -575,7 +575,7 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
       SQ (S) & SQ (H) & N & M & SC L2 & SC Cos & SC Var & TL & FC\\
       \midrule
       5.54e3 & 1.10e4 & -4.83 & -3.12 & -12.9 & 0.947 & -37.0e3 & 2.87 & -13.9e4\\
-      \rowcolor{my-pink}
+      \rowcolor{my-blue-light}
       \textbf{16.0e3} & \textbf{3.76e4} & \textbf{-3.65} & \textbf{-2.69} & \textbf{-3.70} & 0.700 & \textbf{-8.12e3} & \textbf{3.45} & \textbf{-5.44e4}
     \end{tabular}
   \end{table}
@@ -664,13 +664,17 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
   \begin{itemize}
   \setlength\itemsep{0.5cm}
   \item
-    % Предложены новые способы подсчёта когерентности.
-    % При некоторых характеристиках обрабатываемого текста новые методы превосходят по качеству уже существующие.
-    New methods of calculating coherence which take into account the whole text.\\
-    In the problem under consideration, the proposed coherences outperform top-tokens based ones.
+    New methods of calculating coherence of a topic which are proposed.
+    
+    \smallskip
+    
+    These methods take into account the whole text and, in the problem under consideration, outperform the top-tokens based ones.
   \item
-    % Разработан полуавтоматический способ сравнения когерентностей.
-    An automatic method for evaluating coherences functions based on their comparison with text segmentation quality.
+    An automatic method for evaluating coherences functions is introduced.
+    
+    \smallskip
+    
+    It is based on the comparison of coherence values with text segmentation qualities for a range of topic models.
   \end{itemize}
 \end{frame}
 \end{document}
