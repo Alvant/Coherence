@@ -299,7 +299,9 @@
 
 
 \begin{frame}{Drawbacks of Top-Tokens Based Approach}
-  Top token-based coherences may ignore more than 98\% of words of the documents' collection.
+  \begin{block}{}
+    Top token-based coherences may ignore more than 98\% of words of the documents' collection!
+  \end{block}
   
   \bigskip
   
@@ -324,8 +326,11 @@
 
 
 \begin{frame}{Drawbacks of Top-Tokens Based Approach}
-  A single top token "частиц" out of the first 10 ones is seen.\\
-  The wide range of less strong topical words is ignored by the top-tokens based coherences.
+  \begin{block}{}
+    Single top token "частиц" out of the first 10 ones is seen.\\
+    Wide range of less strong topical words is ignored by the top-tokens based coherences.
+  \end{block}
+  
   \begin{figure}[h]
     \centering
     \includegraphics[width=1.0\textwidth]{topwords-insufficient.jpg}
@@ -433,7 +438,7 @@
   
   \medskip
   
-  Count words of topic $t$, penalizing when word of another topic is encountered.
+  Counts words of topic $t$, penalizing when a word of another topic is encountered.
   
   \vspace{0.5cm}
   
