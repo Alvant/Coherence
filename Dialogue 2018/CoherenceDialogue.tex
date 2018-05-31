@@ -180,7 +180,7 @@
   
   \smallskip
   
-  \emph{Coherence} is a commonly used method for estimating the interpretability, which measures how often 10 most probable terms of the topic occur in close proximity within text.
+  \emph{Coherence} is an automated method for estimating interpretability, which measures how often 10 most probable terms of the topic occur in close proximity within text.
 \end{frame}
 
 
@@ -203,8 +203,8 @@
 %\section{Цель исследования}
 \begin{frame}{Purpose of the Study}
   \begin{block}{Problem}
-    The list of top ten words reflects only a small part of the whole topic model. \\
-    Existing methods of calculating coherence do not address this.
+    Top-tokens based coherences rely on the list of top ten words.\\
+    These words reflect only a small part of the whole topic model.
   \end{block}
   \begin{block}{Solution}
     Evaluate coherence as an average thematic proximity of words closely located in text.
@@ -212,10 +212,12 @@
 \end{frame}
 
 
+\iffalse
 \begin{frame}
   \frametitle{Contents}
   \tableofcontents
 \end{frame}
+\fi
 
 
 \section{Prologue}
@@ -225,11 +227,14 @@
 
 
 \begin{frame}{Topic Modeling and Matrix Factorization}
-  Topic model describes documents using \emph{latent} topics.
+  Topic model describes documents using \emph{latent} topics
+  \smallskip
+  
   \begin{itemize}
     \item $\phi_{wt} \equiv p(w \mid t)$~---~ how often word $w$ appears in topic $t$
     \item $\theta_{td} \equiv p(t \mid d)$~---~probability of topic $t$ within document $d$
   \end{itemize}
+  
   \centering
   \includegraphics[width=\textwidth]{murat_plsa.eps}\\
 
@@ -237,10 +242,10 @@
 
 \subsection{Original Dataset}
 
-\begin{frame}{Original Dataset: three top-words of each of 19 topics}
+\begin{frame}{Original Dataset: Three Top-Words of Each of 19 Topics}
 
   {\small
-    $2000$ \emph{monotopic} PostNauka\footnote[frame]{https://postnauka.ru} articles. Topics are found with BigARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}
+    $2000$ \emph{monotopic} PostNauka\footnote[frame]{https://postnauka.ru} articles. Topics found with BigARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}
   }
   
   \begin{figure}[h]
@@ -320,10 +325,6 @@
 \section{Intra-Text Coherences}
 
 
-
-
-
-
 \begin{frame}{SemantiC (L2, Cos)}
 
   \begin{block}{Meaning}
@@ -352,7 +353,7 @@
 \end{tabular}
 \end{tabularx}
 \end{table}
-Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{my-green!10}{blue!55}$, etc.
+Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{my-green!10}{blue!55}$
 \end{frame}
 
 \begin{frame}{SemantiC (Var)}
@@ -391,12 +392,7 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
 \end{tabular}  
 \end{tabularx}
 \end{table}
-
-
 \end{frame}
-
-
-
 
 
 \begin{frame}{TopLen}
@@ -404,19 +400,17 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
     Average length of the topic in text
   \end{block}
   
-  \begin{block}{Formula}
-    \begin{flalign*}
-      &\TopLen \Bigm|_{t} = \biggl\langle \max\Bigl\{n : \threshold + \sum\limits_{j=i}^{i+n} \Bigl(
-          \bsym{w_j}[t] - \underset{\substack{1 \leq \tau \leq |T|\\\tau \not= t}}{\max}\, \bsym{w_j}[\tau]
-        \Bigr) \geq 0\Bigr\} \biggr\rangle&
-    \end{flalign*}
-  \end{block}
+  \medskip
   
-  \vspace{0.75cm}
-  $t = \mbox{"Чёрные дыры"},\ \threshold \sim 0$~---~threshold
-  \jp
-  $\underbrace{\mbox{Группе}}_{w_1}\ \underbrace{\mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}}_{l_1=2}\ \mbox{обнаружить}\ \underbrace{\mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}}_{l_2=2}$\\
+  Count words of topic $t$, penalizing when word of another topic is encountered.
+  
+  \medskip
+  
+  \begin{exampleblock}{Пример. Тема $t = \mbox{"Чёрные дыры"}$}
+  \noi
+  $\mbox{Группе}\ \underbrace{\mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}}_{l_1=2}\ \mbox{обнаружить}\ \underbrace{\mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}}_{l_2=2}$\\
   $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}\ \mbox{близком}}_{l_3=4}\ \mbox{расстоянии}.$
+  \end{exampleblock}
 \end{frame}
 
 
@@ -427,7 +421,7 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   
   \begin{figure}[h]
     \centering
-    \includegraphics[width=1.0\textwidth]{astronomers_focon.eps}
+    \includegraphics[width=1.0\textwidth, height=0.45\textheight]{astronomers_focon.eps} % .eps image is wrong scaled
   \end{figure}
 \end{frame}
 
@@ -448,7 +442,8 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   \end{figure}    
 \end{frame}
 
-\begin{frame}{Dataset generation}
+
+\begin{frame}{Dataset Generation}
   \begin{columns}
   \column{0.5\textwidth}
     \begin{itemize}\setlength{\itemindent}{-1em} % https://stackoverflow.com/questions/2611276/latex-beamer-way-to-change-the-bullet-indentation
@@ -464,11 +459,11 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   
   \medskip
   
-
 \end{frame}
 
 	
 \subsection{Segmentation Quality}
+
 
 \begin{frame}{Segmentation Quality}
   \begin{block}{Soft}
@@ -482,6 +477,7 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
 
 
 \section{Experiments}
+
 
 \begin{frame}{Illustration of \textbf{a Bad Model} Segmenting Text}
   \begin{figure}[h]
@@ -540,6 +536,7 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   \end{itemize}
 \end{frame}
 
+
 \iffalse
 \begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
   \begin{itemize}\setlength{\itemindent}{-1em}
@@ -558,7 +555,8 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
 \end{frame}
 \fi
 
-\begin{frame}{Spearman Correlations Between Coherences \& Segmentation Quality}
+
+\begin{frame}{Spearman Correlations Between\\Coherences \& Segmentation Quality}
   \begin{table}[t]
     \begin{tabular}{lr}
       Coh & Corr\\
@@ -609,7 +607,9 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
 \end{frame}
 
 
-\begin{frame}{Coherence Measures \& Segmentation Quality as a Function of $\alpha$ (dataset $\sgm=200,\ \thm=5$)}
+\begin{frame}{Coherences \& Segmentation Quality\\as Functions of Topic Model Quality}
+  % dataset $\sgm=200,\ \thm=5$
+  
   \begin{figure}[h]
     \begin{subfigure}[t]{0.48\textwidth}
       \includegraphics[width=\linewidth]{newman-iteration.jpg}
