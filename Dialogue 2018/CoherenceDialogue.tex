@@ -178,7 +178,7 @@
     loan, debt, bankrupt, interest
   \end{alertblock}
   
-  \vspace{0.25cm}
+  \smallskip
   
   \emph{Coherence} is a commonly used method for estimating the interpretability, which measures how often 10 most probable terms of the topic occur in close proximity within text.
 \end{frame}
@@ -186,14 +186,17 @@
 
 %\section{Цель исследования}
 \begin{frame}{Purpose of the Study}
-  \begin{minipage}{0.66\textwidth}
-  \includegraphics[width=\textwidth]{doc11358_topic0.png}\\
+  \begin{minipage}{0.70\textwidth}
+    \includegraphics[width=\textwidth]{doc11358_topic0.jpg}
   \end{minipage}
-  \begin{minipage}{0.3\textwidth}
-      \includegraphics[width=\textwidth]{legend.png}
+  ~
+  \begin{minipage}{0.20\textwidth}
+    \includegraphics[width=\textwidth]{legend.png}
   \end{minipage}
   \begin{block}{Problem}
-    10 most frequent words cover a small proportion of text.  Even more so, if you take into account the requirement of co-occurrence. Is analysis of co-occurrences adequate?
+    Ten most frequent words cover only a small proportion of text.
+    Сo-occurrences are even fewer.
+    Can one rely on the analysis of these co-occurrences?
   \end{block}
 \end{frame}
 
@@ -222,13 +225,13 @@
 
 
 \begin{frame}{Topic Modeling and Matrix Factorization}
-  \emph{Topic model} describes documents using latent topics.
+  Topic model describes documents using \emph{latent} topics.
   \begin{itemize}
-    \item $\phi_{wt} \equiv p(w \mid t)$~---~ how often does word $w$ appear in topic $t$
+    \item $\phi_{wt} \equiv p(w \mid t)$~---~ how often word $w$ appears in topic $t$
     \item $\theta_{td} \equiv p(t \mid d)$~---~probability of topic $t$ within document $d$
   \end{itemize}
   \centering
-  \includegraphics[width=\textwidth]{murat_plsa.png}\\
+  \includegraphics[width=\textwidth]{murat_plsa.eps}\\
 
 \end{frame}
 
@@ -237,7 +240,7 @@
 \begin{frame}{Original Dataset: three top-words of each of 19 topics}
 
   {\small
-    $\approx 2000$ \emph{monotopic} PostNauka\footnote[frame]{https://postnauka.ru} articles. Topics are found with bigARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}
+    $2000$ \emph{monotopic} PostNauka\footnote[frame]{https://postnauka.ru} articles. Topics are found with BigARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}
   }
   
   \begin{figure}[h]
@@ -332,24 +335,24 @@
 %& Group of & astronomers & discovered & a star \\
 & Группа & астрономов & обнаружила & звезду \\
 \begin{tabular}[c]{@{}l@{}}$\begin{matrix}\\ \textcolor{my-red}{Astronomy} \\\\
-\textcolor{green}{Biology} \\\\
+\textcolor{my-green}{Biology} \\\\
 \textcolor{blue}{Music} \\\\
 \end{matrix}$\end{tabular} & 
 \begin{tabular}[c]{@{}l@{}} 
-    $\topicvector{my-red!10}{green!33}{blue!66}$
+    $\topicvector{my-red!10}{my-green!33}{blue!66}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    $\topicvector{my-red!90}{green!10}{blue!10}$
+    $\topicvector{my-red!90}{my-green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    $\topicvector{my-red!45}{green!45}{blue!10}$
+    $\topicvector{my-red!45}{my-green!45}{blue!10}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    $\topicvector{my-red!75}{green!10}{blue!55}$
+    $\topicvector{my-red!75}{my-green!10}{blue!55}$
 \end{tabular}
 \end{tabularx}
 \end{table}
-We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{green!10}{blue!55}$, etc.
+Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{my-green!10}{blue!55}$, etc.
 \end{frame}
 
 \begin{frame}{SemantiC (Var)}
@@ -358,32 +361,33 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
     How much the meanings of adjacent words differ, according to the topic model
   \end{block}
 \begin{table}[]
-\begin{tabularx}{1.1\textwidth}{l| *{3}{Y}|*{3}{Y}|}
+\small
+\begin{tabularx}{1.0\textwidth}{l| *{3}{Y}|*{3}{Y}|}
 & \multicolumn{3}{c|}{Low variance} 
 & \multicolumn{3}{c|}{High variance}\\
 \cline{2-7}
 & русский & поэт & Пушкин & Толстой & Рассел & Эйлер \\
 \begin{tabular}[c]{@{}l@{}}$\begin{smallmatrix}\\ \textcolor{my-red}{Literature} \\\\
-\textcolor{green}{Philosophy} \\\\
+\textcolor{my-green}{Philosophy} \\\\
 \textcolor{blue}{Mathematics} \\\\
 \end{smallmatrix}$\end{tabular}  &
 \begin{tabular}[c]{@{}l@{}} 
-    $\smalltopicvector{my-red!50}{green!25}{blue!25}$
+    $\smalltopicvector{my-red!50}{my-green!25}{blue!25}$
 \end{tabular} & 
 \begin{tabular}[c]{@{}l@{}}
-    $\smalltopicvector{my-red!90}{green!10}{blue!10}$
+    $\smalltopicvector{my-red!90}{my-green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    $\smalltopicvector{my-red!90}{green!10}{blue!10}$
+    $\smalltopicvector{my-red!90}{my-green!10}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    $\smalltopicvector{my-red!90}{green!30}{blue!10}$
+    $\smalltopicvector{my-red!90}{my-green!30}{blue!10}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    $\smalltopicvector{my-red!10}{green!50}{blue!50}$
+    $\smalltopicvector{my-red!10}{my-green!50}{blue!50}$
 \end{tabular} &  
 \begin{tabular}[c]{@{}l@{}}
-    $\smalltopicvector{my-red!10}{green!10}{blue!90}$
+    $\smalltopicvector{my-red!10}{my-green!10}{blue!90}$
 \end{tabular}  
 \end{tabularx}
 \end{table}
@@ -437,15 +441,16 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
 
 \subsection{Semisynthetic Dataset}
 \begin{frame}
-		\frametitle{Idea}
-		\centering
-        \includegraphics[width=.85\textwidth]{pn_gen_diagram.png}\\
-
-       Semi-synthetic document produced by combining a sociology segment and an medicine segment.
+  \frametitle{Motivation}
   \begin{block}{}
     The better the coherence is, the better it should describe the ability of a topic model to figure out the segmentation structure!
-  \end{block}       
-	\end{frame}
+  \end{block}   
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth, height=0.6\textheight]{pn_gen_diagram.eps}
+    \caption*{Document consisting of sociology and medicine segments}
+  \end{figure}    
+\end{frame}
 
 \begin{frame}{Semisynthetic Dataset}
   \begin{columns}
@@ -542,7 +547,7 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
   \end{itemize}
 \end{frame}
 
-
+\iffalse
 \begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
   \begin{itemize}\setlength{\itemindent}{-1em}
   \item Perplexity: intrinsic quality criteria; the lower, the better.
@@ -558,7 +563,7 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
     Proposed segmentation quality estimation may be used as topic models’ quality measure
   \end{block}
 \end{frame}
-
+\fi
 
 \begin{frame}{Spearman Correlations Between Coherences \& Segmentation Quality}
   \begin{table}[t]

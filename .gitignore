@@ -1,0 +1,12 @@
+
+*.aux
+
+*.log
+
+*.nav
+
+*.out
+
+*.snm
+
+*.tcp

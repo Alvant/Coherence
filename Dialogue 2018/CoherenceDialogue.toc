@@ -1,0 +1,12 @@
+\select@language {russian}
+\beamer@sectionintoc {1}{Prologue}{6}{0}{0}
+\beamer@subsectionintoc {1}{1}{Topic Modeling}{7}{0}{0}
+\beamer@subsectionintoc {1}{2}{Original Dataset}{8}{0}{0}
+\beamer@sectionintoc {2}{Top-Tokens Based Coherences}{9}{0}{1}
+\beamer@subsectionintoc {2}{1}{Newman, Mimno}{10}{0}{1}
+\beamer@subsectionintoc {2}{2}{Drawbacks of Top-Tokens Based Approach}{11}{0}{1}
+\beamer@sectionintoc {3}{Intra-Text Coherences}{13}{0}{2}
+\beamer@sectionintoc {4}{Automatic Coherences' Quality Estimation}{18}{0}{3}
+\beamer@subsectionintoc {4}{1}{Semisynthetic Dataset}{19}{0}{3}
+\beamer@subsectionintoc {4}{2}{Segmentation Quality}{21}{0}{3}
+\beamer@sectionintoc {5}{Experiments}{22}{0}{4}
