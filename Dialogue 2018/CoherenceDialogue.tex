@@ -425,14 +425,10 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
     Estimation of how much the focus of a conversation drifts
   \end{block}
   
-  \begin{block}{Formula}
-    \begin{flalign*}
-      &\FoCon = -\sum\limits_{d \in D}\sum\limits_{\substack{w, u \in W_d\\\rho(w, u)=1}}
-      \bigl|\bsym{w}[t] - \bsym{u}[t]\bigr| + \bigl|\bsym{w}[\tau] - \bsym{u}[\tau]\bigr|&
-    \end{flalign*}
-  \end{block}
-  
-  $t, \tau$~---~maximal components of vectors $\bds w$ and $\bds u$ respectively
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{astronomers_focon.eps}
+  \end{figure}
 \end{frame}
 
 
@@ -447,20 +443,17 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   \end{block}   
   \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth, height=0.6\textheight]{pn_gen_diagram.eps}
+    \includegraphics[width=0.7\textwidth, height=0.5\textheight]{pn_gen_diagram.eps}
     \caption*{Document consisting of sociology and medicine segments}
   \end{figure}    
 \end{frame}
 
-\begin{frame}{Semisynthetic Dataset}
+\begin{frame}{Dataset generation}
   \begin{columns}
   \column{0.5\textwidth}
-    Dataset generation
-    \vspace{0.25cm}
-    
     \begin{itemize}\setlength{\itemindent}{-1em} % https://stackoverflow.com/questions/2611276/latex-beamer-way-to-change-the-bullet-indentation
-      \item We “cut” the monotopical documents into smaller monotopical segments
-      \item Then we “sew” them together in random order to produce a new document. 
+      \item We “cut” the monotopical documents into smaller monotopical segments.
+      \item We “sew” them together in random order to produce a new document. 
       \item We know topic labels for each word and can use them as ground truth.
     \end{itemize}
     
