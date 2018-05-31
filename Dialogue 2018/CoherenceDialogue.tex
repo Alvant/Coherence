@@ -484,14 +484,28 @@
 \subsection{Segmentation Quality}
 
 
-\begin{frame}{Segmentation Quality}
-  \begin{block}{Soft}
-    Sum among topics of sums $p(t \mid d, w)$ for each topic $t$ over pairs $(d, w), d \hm\in d, w \hm\in W_d$
+\begin{frame}{Segmentation Quality. Soft}
+  \begin{block}{}
+    Sum of components $p(t \mid d, w)$ for topic $t$
   \end{block}
   
-  \begin{block}{Strict}
-    Number of coincidences of the topic $\argmax_\tau p(\tau \mid d, w)$ predicted by the model for the word $w$ in the document with the actual topic $t$ of the segment
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth, height=0.45\textheight]{astronomers_soft.eps} % .eps image is wrong scaled
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}{Segmentation Quality. Strict}
+  \begin{block}{}
+    Number of coincidences of predicted topic and actual topic $t$
+    % Number of coincidences of the topic $\argmax_\tau p(\tau \mid d, w)$ predicted by the model for the word $w$ in the document with the actual topic $t$ of the segment
   \end{block}
+  
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth, height=0.45\textheight]{astronomers_strict.eps} % .eps image is wrong scaled
+  \end{figure}
 \end{frame}
 
 
