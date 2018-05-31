@@ -186,18 +186,23 @@
 
 %\section{Цель исследования}
 \begin{frame}{Purpose of the Study}
-  \begin{minipage}{0.4\textwidth}
+  \begin{minipage}{0.66\textwidth}
+  \includegraphics[width=\textwidth]{doc11358_topic0.png}\\
+  \end{minipage}
+  \begin{minipage}{0.3\textwidth}
+      \includegraphics[width=\textwidth]{legend.png}
+  \end{minipage}
   \begin{block}{Problem}
-    Existing methods of calculating topic's coherence are based on the analysis of its most frequent words' co-occurrences.
-    However, the proportion of text covered by these top-words is not controlled in any way.
+    10 most frequent words cover a small proportion of text.  Even more so, if you take into account the requirement of co-occurrence. Is analysis of co-occurrences adequate?
   \end{block}
-  \end{minipage}
-  \begin{minipage}{0.1\textwidth}
-  \phantom{W}
-  \end{minipage}
-  \begin{minipage}{0.5\textwidth}
-      \includegraphics[width=\textwidth]{doc10399_topic_0.png}
-  \end{minipage}
+\end{frame}
+
+%\section{Цель исследования}
+\begin{frame}{Purpose of the Study}
+  \begin{block}{Problem}
+  The list of top ten words reflects only a small part of the whole topic model. \\
+    Existing methods of calculating coherence do not address this.
+  \end{block}\\
   \begin{block}{Solution}
     Evaluate coherence as an average thematic proximity of words closely located in text.
   \end{block}
@@ -216,63 +221,28 @@
 \subsection{Topic Modeling}
 
 
-\begin{frame}{Сonventional Signs}
+\begin{frame}{Topic Modeling and Matrix Factorization}
+  \emph{Topic model} describes documents using latent topics.
   \begin{itemize}
-    %\setbeamertemplate{itemize items}[triangle]
-    %\setlength\itemsep{1em}
-    \item $W$~---~dictionary, $D$~---~documents, $T$~---~topics
-    \item $n_{dw}$~---~number of occurrences of word $w$ in the document $d$
-    \item $\nu_{wd}$~---~frequency of word's $w$ occurrences in document $d$
-    \item $\phi_{wt} \equiv p(w \mid t)$~---~probability that word $w$ refers to topic $t$ %тема как условное распределение на множестве терминов\sp
-    \item $\theta_{td} \equiv p(t \mid d)$~---~probability that topic $t$ refers to document $d$
-    \item $\bds w \equiv p(t \mid w)$~---~corresponding to word $w$ vector
-    \item Matrices $\Phi \equiv (\phi_{wt})_{W \times T}$, $\Theta \equiv (\theta_{td})_{T \times D}$
-    \item "Bag of words" hypothesis: it doesn't matter how words are ordered in documents
-    \item Hypothesis of conditional independence: $p(w \mid d, t) \equiv p(w \mid t)$
+    \item $\phi_{wt} \equiv p(w \mid t)$~---~ how often does word $w$ appear in topic $t$
+    \item $\theta_{td} \equiv p(t \mid d)$~---~probability of topic $t$ within document $d$
   \end{itemize}
-  
-  \emph{Topic model} through topics describes occurrences of words in documents
-  \[
-     p(w \mid d) = \sum\limits_{T} p(w \mid t) p(t \mid d)
-  \]
+  \centering
+  \includegraphics[width=\textwidth]{murat_plsa.png}\\
+
 \end{frame}
-
-
-\begin{frame}{Topic Modeling}
-  Matrix decomposition problem
-  $(\nu_{wd})_{W \times D} = \Phi\, \Theta$
-  
-  \medskip
-  
-  ARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}: Regularized log likelihood $p(T, D, W)$ maximization
-  \[
-    \sum_{d \in D}\sum_{w \in W_d}n_{dw} \ln{\sum_{t \in T} \phi_{wt} \theta_{td}} + R(\Phi, \Theta) \to \max\limits_{\Phi, \Theta}
-  \]
-  
-  \medskip
-  
-  Proper regularizer $R(\Phi, \Theta)$ may help with
-  \begin{itemize}
-  \item smoothing a background topic, spreading its probability among general vocabulary words
-  \item sparsing a topic, thickening its probability in a small number of subject area words
-  \item decorrelation of topics
-  \end{itemize}
-\end{frame}
-
 
 \subsection{Original Dataset}
 
-
-\begin{frame}{Original Dataset}
+\begin{frame}{Original Dataset: three top-words of each of 19 topics}
 
   {\small
-    Approximately 2000 \emph{monotopic} articles from PostNauka\footnote[frame]{https://postnauka.ru} on 19 topics.
+    $\approx 2000$ \emph{monotopic} PostNauka\footnote[frame]{https://postnauka.ru} articles. Topics are found with bigARTM\footnote[frame]{Vorontsov K. et al. Bigartm: Open source library for regularized multimodal topic modeling of large collections, 2015}
   }
   
   \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{topwords.jpg}
-    \caption*{Three top-words of each of 19 topics}
+    \includegraphics[width=0.85\textwidth]{topwords.jpg}
   \end{figure}
 \end{frame}
 
@@ -466,17 +436,27 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
 
 
 \subsection{Semisynthetic Dataset}
+\begin{frame}
+		\frametitle{Idea}
+		\centering
+        \includegraphics[width=.85\textwidth]{pn_gen_diagram.png}\\
+
+       Semi-synthetic document produced by combining a sociology segment and an medicine segment.
+  \begin{block}{}
+    The better the coherence is, the better it should describe the ability of a topic model to figure out the segmentation structure!
+  \end{block}       
+	\end{frame}
 
 \begin{frame}{Semisynthetic Dataset}
   \begin{columns}
   \column{0.5\textwidth}
-    Dataset parameters
+    Dataset generation
     \vspace{0.25cm}
     
     \begin{itemize}\setlength{\itemindent}{-1em} % https://stackoverflow.com/questions/2611276/latex-beamer-way-to-change-the-bullet-indentation
-      \item document size
-      \item $\thm$~---~number of topics in a document
-      \item $\sgm$~---~number of words in a segment
+      \item We “cut” the monotopical documents into smaller monotopical segments
+      \item Then we “sew” them together in random order to produce a new document. 
+      \item We know topic labels for each word and can use them as ground truth.
     \end{itemize}
     
   \column{0.5\textwidth}
@@ -486,19 +466,10 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
   
   \medskip
   
-  \begin{block}{}
-    The better the coherence is, the better it should describe the ability of a topic model to figure out the segmentation structure!
-  \end{block}
+
 \end{frame}
 
-	\begin{frame}
-		\frametitle{Example}
-		\centering
-        \includegraphics[width=.85\textwidth]{pn_gen_diagram.png}\\
-
-       Semi-synthetic document produced by combining a sociology segment and an medicine segment.
-	\end{frame}
-
+	
 \subsection{Segmentation Quality}
 
 \begin{frame}{Segmentation Quality}
@@ -508,23 +479,6 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
   
   \begin{block}{Strict}
     Number of coincidences of the topic $\argmax_\tau p(\tau \mid d, w)$ predicted by the model for the word $w$ in the document with the actual topic $t$ of the segment
-  \end{block}
-\end{frame}
-
-
-\begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
-  \begin{itemize}\setlength{\itemindent}{-1em}
-  \item Perplexity: intrinsic quality criteria; the lower, the better.
-  \item Range of topic models: $\Phi(\alpha) = \alpha \Phi_{bad} + (1 - \alpha) \Phi_{good}$.
-  \end{itemize}
-  
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.65\textwidth]{segm_quality-iteration200}
-  \end{figure}
-  
-  \begin{block}{}
-    Proposed segmentation quality estimation may be used as topic models’ quality measure
   \end{block}
 \end{frame}
 
@@ -586,6 +540,23 @@ We compare every pair of vectors: e.g. $\smalltopicvector{my-red!10}{green!33}{b
     \item N, M~---~Newman, Mimno
     \item SC, TL, FC~---~SemantiC, TopLen, FoCon
   \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Segmentation Quality \& Perplexity of Topic Model}
+  \begin{itemize}\setlength{\itemindent}{-1em}
+  \item Perplexity: intrinsic quality criteria; the lower, the better.
+  \item Range of topic models: $\Phi(\alpha) = \alpha \Phi_{bad} + (1 - \alpha) \Phi_{good}$.
+  \end{itemize}
+  
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.65\textwidth]{segm_quality-iteration200}
+  \end{figure}
+  
+  \begin{block}{}
+    Proposed segmentation quality estimation may be used as topic models’ quality measure
+  \end{block}
 \end{frame}
 
 
