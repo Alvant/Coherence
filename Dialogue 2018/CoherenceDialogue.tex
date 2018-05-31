@@ -404,14 +404,43 @@ Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green
   
   Count words of topic $t$, penalizing when word of another topic is encountered.
   
-  \medskip
+\begingroup
+\setlength{\tabcolsep}{3pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1} % Default value: 1
+\begin{tabularx}{\textwidth}{>{\hsize=30pt}X |cccccc|}
+\multirow{6}{30pt}{Most likely topic} & 
+    Группе & астрономов & удалось & обнаружить \\
+        & \topicsquare{blue!66} & 
+        \topicsquare{my-red!90} &
+        \topicsquare{my-red!45} & 
+        \topicsquare{blue!33} \\ 
+     &
+     &
+    \multicolumn{2}{@{}c@{}}{
+        $\underbrace{\hspace*{\dimexpr6\tabcolsep+2\arrayrulewidth}\hphantom{\text{астрономов удалось}}}_{l_1=2}$} &     
+    \multicolumn{1}{c}{} \\
+& звезду, & обращающуюся & вокруг & чёрной & дыры \\
+        & 
+        \topicsquare{my-red!75} &
+        \topicsquare{my-red!45} & 
+        \topicsquare{gray!55} &
+        \topicsquare{my-red!75} &
+        \topicsquare{my-red!75} \\
+    &
+    \multicolumn{2}{@{}c@{}}{
+        $\underbrace{\hspace*{\dimexpr6\tabcolsep+2\arrayrulewidth}\hphantom{\text{звезду, обращающуюсся}}}_{l_2=2}$} &
+    & 
+    \multicolumn{2}{@{}c@{}}{
+        $\underbrace{\hspace*{\dimexpr6\tabcolsep+2\arrayrulewidth}\hphantom{\text{чёрной дыры}}}_{l_3=2}$} 
+\end{tabularx}
+\endgroup
   
-  \begin{exampleblock}{Пример. Тема $t = \mbox{"Чёрные дыры"}$}
-  \noi
-  $\mbox{Группе}\ \underbrace{\mbox{\textcolor{my-pink}{астрономов}}\ \mbox{удалось}}_{l_1=2}\ \mbox{обнаружить}\ \underbrace{\mbox{\textcolor{my-pink}{звезду}}, \mbox{обращающуюся}}_{l_2=2}$\\
-  $\mbox{вокруг}\ \underbrace{\mbox{\textcolor{my-red}{чёрной}}\ \mbox{\textcolor{my-red}{дыры}}\ \mbox{на}\ \mbox{рекордно}\ \mbox{близком}}_{l_3=4}\ \mbox{расстоянии}.$
-  \end{exampleblock}
 \end{frame}
+
+
+
+
+
 
 
 \begin{frame}{FoCon}
