@@ -185,7 +185,7 @@
 
 
 %\section{Цель исследования}
-\begin{frame}{Purpose of the Study}
+\begin{frame}{Illustration of the Problem\\of Top-Tokens Based Approach}
   \begin{minipage}{0.70\textwidth}
     \includegraphics[width=\textwidth]{doc11358_topic0.jpg}
   \end{minipage}
@@ -193,7 +193,7 @@
   \begin{minipage}{0.25\textwidth}
     \includegraphics[width=\textwidth]{legend.eps}
   \end{minipage}
-  \begin{block}{Problem}
+  \begin{block}{}
     Ten most frequent words cover only a small proportion of text.
     Сo-occurrences are even fewer.
     Can one rely on the analysis of these co-occurrences?
@@ -344,7 +344,7 @@
 \begin{frame}{SemantiC (L2, Cos): Semantic Closeness}
 
   \begin{block}{Meaning}
-    Semantic proximity of closely located words in text
+    Semantic proximity of closely located words of the same topic $t$
   \end{block}
   
   \vspace{-0.6cm}
@@ -373,14 +373,14 @@
   \end{tabularx}
   \end{table}
   
-  Pairs of close vectors are compared: e.g. $\smalltopicvector{my-red!10}{my-green!33}{blue!66}$ vs $\smalltopicvector{my-red!75}{my-green!10}{blue!55}$
+  Pairs of vectors are compared: e.g. $\smalltopicvector{my-red!90}{my-green!10}{blue!10}$ vs $\smalltopicvector{my-red!75}{my-green!10}{blue!55}$
 \end{frame}
 
 
 \begin{frame}{SemantiC (Var): Semantic Closeness}
 
   \begin{block}{Meaning}
-    How much the meanings of adjacent words differ, according to the topic model
+    How much topic $t$ varies among words closely located in text
   \end{block}
   
   \vspace{0.5cm}
@@ -421,8 +421,12 @@
 
 \begin{frame}{FoCon: Focus Consistency}
   \begin{block}{Meaning}
-    Estimation of how much the focus of a conversation drifts
+    How much the focus of a conversation drifts
   \end{block}
+  
+  \medskip
+  
+  Method is not tied to a topic, it gives one value for the topic model as a whole (\emph{topic model coherence}).
   
   \begin{figure}[h]
     \centering
@@ -457,9 +461,10 @@
 
 
 \begin{frame}
-  \frametitle{Motivation}
-  \begin{block}{Hypothesis}
-    All texts consist of segments
+  \frametitle{Purpose of Semisynthetic Dataset}
+  \begin{block}{Idea}
+    Texts consist of segments.
+    But segments' positions are unknown.
   \end{block}
   
   \begin{block}{}
@@ -473,7 +478,7 @@
 \end{frame}
 
 
-\begin{frame}{Dataset Generation}
+\begin{frame}{Semisynthetic Dataset Generation}
   \begin{columns}
   \column{0.5\textwidth}
     \begin{itemize}\setlength{\itemindent}{-1em} % https://stackoverflow.com/questions/2611276/latex-beamer-way-to-change-the-bullet-indentation
@@ -497,7 +502,7 @@
 
 \begin{frame}{Segmentation Quality. Soft}
   \begin{block}{}
-    Sum of components $p(t \mid d, w)$ for topic $t$
+    Sum of $p(t \mid d, w)$ among words in segments of topic $t$
   \end{block}
   
   \begin{figure}[h]
@@ -509,7 +514,7 @@
 
 \begin{frame}{Segmentation Quality. Strict}
   \begin{block}{}
-    Number of coincidences of predicted topic and actual topic $t$
+    Number of coincidences of predicted topic and actual topic $t$ among words in segments of topic $t$
     % Number of coincidences of the topic $\argmax_\tau p(\tau \mid d, w)$ predicted by the model for the word $w$ in the document with the actual topic $t$ of the segment
   \end{block}
   
@@ -601,6 +606,9 @@
 
 
 \begin{frame}{Spearman Correlations Between\\Coherences \& Segmentation Quality}
+  \begin{block}{}
+    A range of topic models: from bad to good
+  \end{block}
   \begin{table}[t]
     \begin{tabular}{lr}
       Coh & Corr\\
@@ -646,7 +654,7 @@
     \centering
     \captionsetup{justification=centering}
     \caption*{
-      Results for datasets with sizes of segments: 50, 200 and 400 words~---~and with $5$ topics in each document}
+      Datasets with: 50, 200 and 400 words in a segment~---~and $5$ topics in each document}
   \end{table}
 \end{frame}
 
