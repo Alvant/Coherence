@@ -1,0 +1,36 @@
+\ProvidesPackage{cohmystyle}
+
+\usepackage{tabularx,booktabs}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\DeclareMathOperator{\threshold}{thr}
+\DeclareMathOperator{\window}{window}
+\DeclareMathOperator{\sgm}{sgm}
+\DeclareMathOperator{\thm}{thm}
+
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cos}{Cos}
+
+\DeclareMathOperator{\Newman}{Newman}
+\DeclareMathOperator{\Mimno}{Mimno}
+
+\DeclareMathOperator{\SemantiC}{SemantiC}
+\DeclareMathOperator{\TopLen}{TopLen}
+\DeclareMathOperator{\FoCon}{FoCon}
+
+\definecolor{my-col1}{RGB}{102, 0, 255}
+
+
+\newenvironment{psmallmatrix}
+  {\left(\begin{smallmatrix}}
+  {\end{smallmatrix}\right)}
+
+  
+\newcommand{\topicvector}[3]{
+    \begin{pmatrix}\\ \fcolorbox{black}{#1}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#2}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#3}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \end{pmatrix}
+}
+
+\newcommand{\smalltopicvector}[3]{
+    \begin{psmallmatrix}\\ \fcolorbox{black}{#1}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#2}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \fcolorbox{black}{#3}{\rule{0pt}{6pt}\rule{6pt}{0pt}} \\\\ \end{psmallmatrix}
+}
