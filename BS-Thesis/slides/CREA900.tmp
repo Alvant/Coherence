@@ -1,9 +1,4 @@
-\documentclass[sans, mathsans, russian]{beamer}
-
-% http://faq.ktug.org/wiki/uploads/MathFonts.pdf
-\usepackage{pxfonts} % pxfonts or palatino or mathpazo packages
-\usepackage{eulervm}
-
+\documentclass[russian]{beamer}
 \usepackage{mystyleslides}
 \usepackage{cohmystyle}
 \usepackage{changepage}
@@ -91,13 +86,15 @@
 \newcommand{\labelitemi}{\usebeamertemplate{itemize item}{}} % Загадка, но без этого у itemize не будет кружочков
 \newcommand{\labelitemii}{\usebeamertemplate{itemize subitem}{}} % https://tex.stackexchange.com/questions/12735/can-one-replace-bullet-points-with-graphics
 
+\iffalse
 \AtBeginSection[]
 {
   \begin{frame}
-    \frametitle{Содержание}
+    \frametitle{Table of Contents}
     \tableofcontents[currentsection]
   \end{frame}
 }
+\fi
 
 \title[Внутритекстовая когерентность]
 {
@@ -160,13 +157,13 @@
 \frame{\titlepage}
 
 
-\begin{frame}{Тема, Интерпретируемость, Когерентность}
+\begin{frame}{Тема, Интерпретируемость и Когерентность}
   \emph{Тема} характеризуется набором слов, которые часто совместно встречаются в тексте.
   \emph{Топ\=/слова} темы~---~её самые частые слова.
   
   \medskip
   
-  \emph{Интерпретируемость} означает, может ли человек по словам темы объяснить, о чём она, дать ей подходящее название.
+  \emph{Интерпретируемость} темы означает, может ли человек по словам темы объяснить, о чём она, дать ей подходящее название.
   
   \vspace{0.25cm}
   
@@ -213,10 +210,10 @@
 \end{frame}
 
 
-%\begin{frame}
-%  \frametitle{Содержание}
-%  \tableofcontents
-%\end{frame}
+\begin{frame}
+  \frametitle{Содержание}
+  \tableofcontents
+\end{frame}
 
 
 %\section{Пролог}
@@ -452,57 +449,54 @@
 
 \begin{frame}{Спирмановские корреляции между когерентностями и качестами сегментации}
   \begin{block}{}
-    Ряд моделей: $\Phi(\alpha) = \alpha \cdot \Phi_{bad} + (1 - \alpha) \cdot \Phi_{good}\ \bigm|\ \alpha \in [0, 1)$\\
-    от модели коллекции <<ПостНаука>>~$\Phi_{good}$ до случайной~$\Phi_{bad}$
+    Ряд тематических моделей: от <<хорошей>> модели коллекции <<ПостНаука>> до плохой модели, матрица $\Phi$ которой взята из некоторого вероятностного распределения
   \end{block}
-  
   \begin{table}[t]
-  %  \begin{tabular}{lr}
-  %    Coh & Corr\\
-  %    \midrule
-  %    $\Newman$ & $0.75$\\
-  %    $\Mimno$ & $0.96$\\
-  %    % \midrule
-  %    $\SC {l_2}$ & $0.92$\\
-  %    $\SC {\Cos}$ & $-0.97$\\
-  %    $\SC {\Var}$ & $\mathbf{1.00}$\\
-  %    $\TopLen$ & $\mathbf{1.00}$\\
-  %    $\FoCon$ & $\mathbf{1.00}$\\
-  %    \bottomrule
-  %  \end{tabular}
-  %  ~
     \begin{tabular}{lr}
       Coh & Corr\\
       \midrule
-      $\Newman$ & $0.80$\\
-      $\Mimno$ & $0.94$\\
-      % \midrule
-      $\SemantiC {l_2}$ & $0.70$\\
-      $\SemantiC {\Cos}$ & $-0.97$\\
-      $\SemantiC {\Var}$ & $\mathbf{1.00}$\\
-      $\TopLen$ & $\mathbf{1.00}$\\
-      $\FoCon$ & $\mathbf{1.00}$\\
+      Newman & $0.75$\\
+      Mimno & $0.96$\\
+      \midrule
+      SC $l_2$ & $0.92$\\
+      SC $\Cos$ & $-0.97$\\
+      SC $\Var$ & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
       \bottomrule
     \end{tabular}
-    %~
-    %\begin{tabular}{lr}
-    %  Coh & Corr\\
-    %  \midrule
-    %  $\Newman$ & $0.85$\\
-    %  $\Mimno$ & $0.97$\\
-    %  % \midrule
-    %  $\SC {l_2}$ & $0.59$\\
-    %  $\SC {\Cos}$ & $-0.96$\\
-    %  $\SC {\Var}$ & $\mathbf{1.00}$\\
-    %  $\TopLen$ & $\mathbf{1.00}$\\
-    %  $\FoCon$ & $\mathbf{1.00}$\\
-    %  \bottomrule
-    %\end{tabular}
+    ~
+    \begin{tabular}{lr}
+      Coh & Corr\\
+      \midrule
+      Newman & $0.80$\\
+      Mimno & $0.94$\\
+      \midrule
+      SC $l_2$ & $0.70$\\
+      SC $\Cos$ & $-0.97$\\
+      SC $\Var$ & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
+      \bottomrule
+    \end{tabular}
+    ~
+    \begin{tabular}{lr}
+      Coh & Corr\\
+      \midrule
+      Newman & $0.85$\\
+      Mimno & $0.97$\\
+      \midrule
+      SC L2 & $0.59$\\
+      SC Cos & $-0.96$\\
+      SC Var & $\mathbf{1.00}$\\
+      TopLen & $\mathbf{1.00}$\\
+      FoCon & $\mathbf{1.00}$\\
+      \bottomrule
+    \end{tabular}
     \centering
     \captionsetup{justification=centering}
     \caption*{
-      Корреляции при размере сегмента $200$ %$50$%, $200$ и $400$
-      слов\\и при $5$ темах в каждом документе
+      Результаты для сегментов с размерами $50$, $200$ и $400$ слов и $5$ темами в каждом документе
     }
   \end{table}
 \end{frame}
@@ -538,7 +532,7 @@
   \item Предложен полуавтоматический метод оценки качества функций когерентности: по корреляции с качеством сегментации полусинтетического текста тематическими моделями.
 
   \item Представлены методы \emph{внутритекстовой} когерентности.
-    По предложенной функции качества некоторые внутритекстовые методы лучше, чем когерентности по топ\=/словам.
+    По предложенной функции оценки качества некоторые новые методы показывают лучшие результаты, чем когерентности по топ\=/словам.
   \end{itemize}
 \end{frame}
 \end{document}
